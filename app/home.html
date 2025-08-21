@@ -15,10 +15,10 @@
     }
 
     html, body {
-      height: 100vh;
-      overflow: hidden;
+      height: 100%;
       font-family: 'Segoe UI', sans-serif;
       background: #fef6f6;
+      overflow: hidden;
     }
 
     .section {
@@ -27,23 +27,27 @@
       left: 0;
       width: 100%;
       height: calc(100vh - 80px);
-      overflow-y: auto;
+      overflow: hidden;
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.5s ease, transform 0.5s ease;
       pointer-events: none;
+      display: none;
     }
 
     .section.active {
       opacity: 1;
       transform: translateY(0);
       pointer-events: auto;
+      display: block;
     }
 
     .section-content {
       padding: 30px 20px;
       max-width: 900px;
       margin: auto;
+      height: 100%;
+      overflow-y: auto;
     }
 
     .intro-text h1 {
@@ -64,21 +68,23 @@
       border-radius: 20px;
       padding: 30px;
       background-color: #fff0f0;
-      display: flex;
-      flex-direction: column;
       text-align: right;
-      animation: fadeInUp 0.8s ease forwards;
       opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .info-block.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .info-block:nth-of-type(2) {
       background-color: #f0fff0;
-      animation-delay: 0.3s;
     }
 
     .info-block:nth-of-type(3) {
       background-color: #f0f7ff;
-      animation-delay: 0.6s;
     }
 
     .info-block h2 {
@@ -92,17 +98,6 @@
       font-size: 1rem;
       color: #555;
       line-height: 1.6;
-    }
-
-    @keyframes fadeInUp {
-      0% {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
 
     .navbar {
@@ -177,6 +172,48 @@
     </div>
   </div>
 
+  <div id="redes" class="section">Redes Sociales</div>
+  <div id="eventos" class="section">Eventos</div>
+  <div id="noticias" class="section">Noticias</div>
+
+  <div class="navbar">
+    <i class="fas fa-home nav-icon active" data-target="inicio" title="Inicio"></i>
+    <i class="fas fa-hashtag nav-icon" data-target="redes" title="Redes Sociales"></i>
+    <i class="fas fa-calendar-alt nav-icon" data-target="eventos" title="Eventos"></i>
+    <i class="fas fa-newspaper nav-icon" data-target="noticias" title="Noticias"></i>
+  </div>
+
+  <script>
+    const icons = document.querySelectorAll('.nav-icon');
+    const sections = document.querySelectorAll('.section');
+
+    icons.forEach(icon => {
+      icon.addEventListener('click', () => {
+        const target = icon.getAttribute('data-target');
+
+        sections.forEach(sec => sec.classList.remove('active'));
+        document.getElementById(target).classList.add('active');
+
+        icons.forEach(i => i.classList.remove('active'));
+        icon.classList.add('active');
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    document.querySelectorAll('.info-block').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
+    
   <div id="redes" class="section">Redes Sociales</div>
   <div id="eventos" class="section">Eventos</div>
   <div id="noticias" class="section">Noticias</div>
