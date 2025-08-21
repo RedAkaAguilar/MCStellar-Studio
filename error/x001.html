@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,49 +9,42 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=warning" />
-</head>
-<html>
   <style>
-      body {
-          background-color: #ff8282;
-      }
-      
-      .material-symbols-outlined {
-          color: #fff;
-          position: relative;
-          margin-top: 100px;
-          left: 35%;
-          font-size: 100px;
-      }
-      
-      .text1 {
-          align-items: center;
-          position: relative;
-          justify-items: center;
-          left: 25%;
-          bottom: 55px;
-          font-size: 3rem;
-          font-family: 'outfit';
-          color: #fff;
-      }
-      .text2 {
-          align-items: center;
-          position: relative;
-          left: 5%;
-          bottom: 85px;
-          font-size: 1rem;
-          font-family: 'outfit';
-          color: #fff;
-      }
-      
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: #ff8282;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Outfit', sans-serif;
+      color: #fff;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    .material-symbols-outlined {
+      font-size: 100px;
+      color: #fff;
+    }
+
+    .text1 {
+      font-size: 3rem;
+      margin: 10px 0;
+    }
+
+    .text2 {
+      font-size: 1rem;
+    }
   </style>
-  <body>
-    <div>
-        <span class="material-symbols-outlined">
-warning
-</span>
-<h1 class="text1">ERROR</h1>
-<p class="text2">Esto es un texto de error</p>
-    </div>
-  </body>
+</head>
+<body>
+  <div class="container">
+    <span class="material-symbols-outlined">warning</span>
+    <h1 class="text1">ERROR</h1>
+    <p class="text2">Esto es un texto de error</p>
+  </div>
+</body>
 </html>
