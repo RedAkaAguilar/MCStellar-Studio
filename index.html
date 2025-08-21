@@ -132,27 +132,32 @@
   </body>
   <script>
   async function checkIP() {
-    try {
-      // Usamos ipapi.co para obtener la IP pública
-      const response = await fetch('https://ipapi.co/json/');
-      const data = await response.json();
+  try {
+    const response = await fetch('https://ipapi.co/json/');
+    const data = await response.json();
 
-      const userIP = data.ip;
-      const allowedIP = '201.193.223.14';
+    const userIP = data.ip;
 
-      console.log('IP detectada:', userIP);
+    const allowedIPs = [
+      '201.193.223.14',
+      '123.456.789.00',
+      '192.168.1.1'
+    ];
 
-      if (userIP !== allowedIP) {
-        // Redirige a la página personalizada
-        window.location.href = 'https://www.mcstellarstudio.com/app/home';
-      }
-    } catch (error) {
-      console.error('Error al obtener la IP:', error);
-      // Opcional: podrías redirigir por seguridad si falla la detección
-      window.location.href = 'https://www.mcstellarstudio.com/error/x001';
+    console.log('IP detectada:', userIP);
+
+    if (!allowedIPs.includes(userIP)) {
+  
+      window.location.href = 'https://www.mcstellarstudio.com/app/home';
     }
-  }
 
-  checkIP();
+  } catch (error) {
+    console.error('Error al obtener la IP:', error);
+    window.location.href = 'https://www.mcstellarstudio.com/error/x001';
+  }
+}
+
+checkIP();
+
   </script>
 </html>
