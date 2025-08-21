@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Home</title>
+  <title>MCStellar Studio</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#ffecec">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
@@ -27,10 +27,7 @@
       left: 0;
       width: 100%;
       height: calc(100vh - 80px);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 2rem;
+      overflow-y: auto;
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.5s ease, transform 0.5s ease;
@@ -41,6 +38,71 @@
       opacity: 1;
       transform: translateY(0);
       pointer-events: auto;
+    }
+
+    .section-content {
+      padding: 30px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .intro-text h1 {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #222;
+      margin-bottom: 10px;
+    }
+
+    .intro-text p {
+      font-size: 1rem;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    .info-block {
+      margin-top: 30px;
+      border-radius: 20px;
+      padding: 30px;
+      background-color: #fff0f0;
+      display: flex;
+      flex-direction: column;
+      text-align: right;
+      animation: fadeInUp 0.8s ease forwards;
+      opacity: 0;
+    }
+
+    .info-block:nth-of-type(2) {
+      background-color: #f0fff0;
+      animation-delay: 0.3s;
+    }
+
+    .info-block:nth-of-type(3) {
+      background-color: #f0f7ff;
+      animation-delay: 0.6s;
+    }
+
+    .info-block h2 {
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .info-block p {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .navbar {
@@ -96,7 +158,57 @@
 </head>
 <body>
 
-  <div id="inicio" class="section active">Inicio</div>
+  <div id="inicio" class="section active">
+    <div class="section-content">
+      <div class="intro-text">
+        <h1>Bienvenido al MCStellar Studio</h1>
+        <p>Aquí encontrarás información sobre nosotros y como proyectos, videos, guías y redes sociales de nosotros. Abajo hay más información.</p>
+      </div>
+
+      <div class="info-block">
+        <h2>¿Quiénes somos?</h2>
+        <p>Somos un Studio con el objetivo de hacer eventos Minecraft profesionales en cortos periodos, es decir eventos de 1 a 30 días o torneos si es el caso. Cualquier persona puede venir a pedir nuestros servicios. No son gratuitos.</p>
+      </div>
+
+      <div class="info-block">
+        <h2>¿Cómo trabajamos?</h2>
+        <p>Nosotros en nuestros servidores trabajamos la idea que tenga el cliente y nuestro cliente nos debe decir cómo va a ser el evento, de qué trata o qué hay que hacer. Nosotros lo cumpliremos, también añadiendo un poco de nuestras ideas. Dependiendo del evento puede durar más o menos tiempo de creación.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="redes" class="section">Redes Sociales</div>
+  <div id="eventos" class="section">Eventos</div>
+  <div id="noticias" class="section">Noticias</div>
+
+  <div class="navbar">
+    <i class="fas fa-home nav-icon active" data-target="inicio" title="Inicio"></i>
+    <i class="fas fa-hashtag nav-icon" data-target="redes" title="Redes Sociales"></i>
+    <i class="fas fa-calendar-alt nav-icon" data-target="eventos" title="Eventos"></i>
+    <i class="fas fa-newspaper nav-icon" data-target="noticias" title="Noticias"></i>
+  </div>
+
+  <script>
+    const icons = document.querySelectorAll('.nav-icon');
+    const sections = document.querySelectorAll('.section');
+
+    icons.forEach(icon => {
+      icon.addEventListener('click', () => {
+        const target = icon.getAttribute('data-target');
+
+        sections.forEach(sec => sec.classList.remove('active'));
+        document.getElementById(target).classList.add('active');
+
+        icons.forEach(i => i.classList.remove('active'));
+        icon.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
+<body>
+
+  <div id="inicio" class="section active"></div>
   <div id="redes" class="section">Redes Sociales</div>
   <div id="eventos" class="section">Eventos</div>
   <div id="noticias" class="section">Noticias</div>
