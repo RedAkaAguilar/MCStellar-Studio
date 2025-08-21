@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Home</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ffecec">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
     * {
@@ -110,6 +112,12 @@
     const icons = document.querySelectorAll('.nav-icon');
     const sections = document.querySelectorAll('.section');
 
+    if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js')
+      .then(reg => console.log('Service Worker registrado:', reg.scope))
+      .catch(err => console.error('Error al registrar Service Worker:', err));
+    }
+    
     icons.forEach(icon => {
       icon.addEventListener('click', () => {
         const target = icon.getAttribute('data-target');
