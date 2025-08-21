@@ -19,6 +19,12 @@
       align-items: center;
       background: white; 
     }
+
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     
   #wifi-loader {
     --background: #62abff;
@@ -220,7 +226,7 @@
  
   </style>
   <body>
-    <div id="wifi-loader">
+    <div id="wifi-loader" class="center">
     <svg class="circle-outer" viewBox="0 0 86 86">
         <circle class="back" cx="43" cy="43" r="40"></circle>
         <circle class="front" cx="43" cy="43" r="40"></circle>
