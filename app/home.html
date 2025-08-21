@@ -1,17 +1,128 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Home</title>
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=warning" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100vh;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      background: #fef6f6;
+    }
+
+    .section {
+      position: absolute;
+      top: 80px;
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 80px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      pointer-events: none;
+    }
+
+    .section.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .navbar {
+      position: fixed;
+      width: 90%;
+      max-width: 500px;
+      height: 60px;
+      background: #ffecec;
+      border-radius: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: top 0.3s ease, bottom 0.3s ease;
+      z-index: 999;
+    }
+
+    .nav-icon {
+      color: #888;
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .nav-icon.active {
+      color: #ff80ab;
+      transform: scale(1.2);
+    }
+
+    #inicio    { background-color: #fff5f5; }
+    #redes     { background-color: #f0f7ff; }
+    #eventos   { background-color: #f5fff0; }
+    #noticias  { background-color: #fffaf0; }
+
+    .navbar {
+      bottom: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .navbar {
+        top: 20px;
+        bottom: auto;
+      }
+
+      .section {
+        top: 80px;
+        height: calc(100vh - 80px);
+      }
+    }
   </style>
 </head>
 <body>
+
+  <div id="inicio" class="section active">Inicio</div>
+  <div id="redes" class="section">Redes Sociales</div>
+  <div id="eventos" class="section">Eventos</div>
+  <div id="noticias" class="section">Noticias</div>
+
+  <div class="navbar">
+    <i class="fas fa-home nav-icon active" data-target="inicio" title="Inicio"></i>
+    <i class="fas fa-hashtag nav-icon" data-target="redes" title="Redes Sociales"></i>
+    <i class="fas fa-calendar-alt nav-icon" data-target="eventos" title="Eventos"></i>
+    <i class="fas fa-newspaper nav-icon" data-target="noticias" title="Noticias"></i>
+  </div>
+
+  <script>
+    const icons = document.querySelectorAll('.nav-icon');
+    const sections = document.querySelectorAll('.section');
+
+    icons.forEach(icon => {
+      icon.addEventListener('click', () => {
+        const target = icon.getAttribute('data-target');
+
+        sections.forEach(sec => {
+          sec.classList.remove('active');
+        });
+        document.getElementById(target).classList.add('active');
+
+        icons.forEach(i => i.classList.remove('active'));
+        icon.classList.add('active');
+      });
+    });
+  </script>
 </body>
 </html>
