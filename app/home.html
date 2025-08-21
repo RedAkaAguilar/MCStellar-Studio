@@ -27,7 +27,7 @@
       left: 0;
       width: 100%;
       height: calc(100vh - 80px);
-      overflow: hidden;
+      overflow-y: auto;
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.5s ease, transform 0.5s ease;
@@ -46,21 +46,17 @@
       padding: 30px 20px;
       max-width: 900px;
       margin: auto;
-      height: 100%;
-      overflow-y: auto;
     }
 
-    .intro-text h1 {
-      font-size: 1.8rem;
+    h1, h2 {
       font-weight: bold;
-      color: #222;
-      margin-bottom: 10px;
+      color: #333;
     }
 
-    .intro-text p {
+    p {
       font-size: 1rem;
-      color: #444;
-      line-height: 1.5;
+      color: #555;
+      line-height: 1.6;
     }
 
     .info-block {
@@ -85,19 +81,6 @@
 
     .info-block:nth-of-type(3) {
       background-color: #f0f7ff;
-    }
-
-    .info-block h2 {
-      font-size: 1.4rem;
-      font-weight: bold;
-      margin-bottom: 10px;
-      color: #333;
-    }
-
-    .info-block p {
-      font-size: 1rem;
-      color: #555;
-      line-height: 1.6;
     }
 
     .navbar {
@@ -153,6 +136,7 @@
 </head>
 <body>
 
+  <!-- INICIO -->
   <div id="inicio" class="section active">
     <div class="section-content">
       <div class="intro-text">
@@ -172,10 +156,73 @@
     </div>
   </div>
 
-  <div id="redes" class="section">Redes Sociales</div>
-  <div id="eventos" class="section">Eventos</div>
-  <div id="noticias" class="section">Noticias</div>
+  <!-- REDES SOCIALES -->
+  <div id="redes" class="section">
+    <div class="section-content">
+      <h1>Nuestras Redes Sociales</h1>
 
+      <div class="info-block">
+        <h2>Discord</h2>
+        <p>Únete a nuestra comunidad en Discord para actualizaciones, soporte, y más.<br><strong>discord.gg/tu-enlace</strong></p>
+      </div>
+
+      <div class="info-block">
+        <h2>YouTube</h2>
+        <p>Explora nuestros videos de eventos pasados, trailers y guías.<br><strong>youtube.com/@mcstellarstudio</strong></p>
+      </div>
+
+      <div class="info-block">
+        <h2>Twitter / X</h2>
+        <p>Síguenos para noticias rápidas, imágenes de eventos y comunicados.<br><strong>@mcstellarstudio</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- EVENTOS -->
+  <div id="eventos" class="section">
+    <div class="section-content">
+      <h1>Eventos en Curso / Recientes</h1>
+
+      <div class="info-block">
+        <h2>BattleCraft 2025</h2>
+        <p>Evento PvP estratégico con duración de 15 días. Servidor cerrado, con 10 equipos compitiendo por el dominio. ¡Revivelo en nuestro YouTube!</p>
+      </div>
+
+      <div class="info-block">
+        <h2>BuildFest Mini</h2>
+        <p>Mini evento creativo donde los jugadores construyen obras artísticas en solo 3 días. ¡Una explosión de creatividad express!</p>
+      </div>
+
+      <div class="info-block">
+        <h2>SkyRaiders Alpha</h2>
+        <p>Un torneo relámpago estilo SkyWars con mecánicas únicas. Duración: 1 semana.<br><em>Disponible bajo pedido privado.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTICIAS -->
+  <div id="noticias" class="section">
+    <div class="section-content">
+      <h1>Últimas Noticias</h1>
+
+      <div class="info-block">
+        <h2>[20 Ago 2025] ¡Nuevo sitio web lanzado!</h2>
+        <p>Hemos renovado completamente nuestra web para que tengas acceso fácil a todo sobre nuestros eventos y servicios.</p>
+      </div>
+
+      <div class="info-block">
+        <h2>[10 Ago 2025] Buscamos Staff y Builders</h2>
+        <p>Si te apasiona Minecraft y quieres trabajar con nosotros en eventos grandes, contáctanos por Discord. ¡Buscamos creativos y organizados!</p>
+      </div>
+
+      <div class="info-block">
+        <h2>[5 Ago 2025] Se completó BattleCraft</h2>
+        <p>El evento PvP más esperado del mes finalizó con éxito. Gracias a todos los participantes. Video resumen disponible en YouTube.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BARRA DE NAVEGACIÓN -->
   <div class="navbar">
     <i class="fas fa-home nav-icon active" data-target="inicio" title="Inicio"></i>
     <i class="fas fa-hashtag nav-icon" data-target="redes" title="Redes Sociales"></i>
@@ -196,6 +243,8 @@
 
         icons.forEach(i => i.classList.remove('active'));
         icon.classList.add('active');
+
+        document.getElementById(target).scrollTo(0, 0);
       });
     });
 
@@ -213,73 +262,4 @@
   </script>
 </body>
 </html>
-    
-  <div id="redes" class="section">Redes Sociales</div>
-  <div id="eventos" class="section">Eventos</div>
-  <div id="noticias" class="section">Noticias</div>
-
-  <div class="navbar">
-    <i class="fas fa-home nav-icon active" data-target="inicio" title="Inicio"></i>
-    <i class="fas fa-hashtag nav-icon" data-target="redes" title="Redes Sociales"></i>
-    <i class="fas fa-calendar-alt nav-icon" data-target="eventos" title="Eventos"></i>
-    <i class="fas fa-newspaper nav-icon" data-target="noticias" title="Noticias"></i>
-  </div>
-
-  <script>
-    const icons = document.querySelectorAll('.nav-icon');
-    const sections = document.querySelectorAll('.section');
-
-    icons.forEach(icon => {
-      icon.addEventListener('click', () => {
-        const target = icon.getAttribute('data-target');
-
-        sections.forEach(sec => sec.classList.remove('active'));
-        document.getElementById(target).classList.add('active');
-
-        icons.forEach(i => i.classList.remove('active'));
-        icon.classList.add('active');
-      });
-    });
-  </script>
-</body>
-</html>
-<body>
-
-  <div id="inicio" class="section active"></div>
-  <div id="redes" class="section">Redes Sociales</div>
-  <div id="eventos" class="section">Eventos</div>
-  <div id="noticias" class="section">Noticias</div>
-
-  <div class="navbar">
-    <i class="fas fa-home nav-icon active" data-target="inicio" title="Inicio"></i>
-    <i class="fas fa-hashtag nav-icon" data-target="redes" title="Redes Sociales"></i>
-    <i class="fas fa-calendar-alt nav-icon" data-target="eventos" title="Eventos"></i>
-    <i class="fas fa-newspaper nav-icon" data-target="noticias" title="Noticias"></i>
-  </div>
-
-  <script>
-    const icons = document.querySelectorAll('.nav-icon');
-    const sections = document.querySelectorAll('.section');
-
-    if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js')
-      .then(reg => console.log('Service Worker registrado:', reg.scope))
-      .catch(err => console.error('Error al registrar Service Worker:', err));
-    }
-    
-    icons.forEach(icon => {
-      icon.addEventListener('click', () => {
-        const target = icon.getAttribute('data-target');
-
-        sections.forEach(sec => {
-          sec.classList.remove('active');
-        });
-        document.getElementById(target).classList.add('active');
-
-        icons.forEach(i => i.classList.remove('active'));
-        icon.classList.add('active');
-      });
-    });
-  </script>
-</body>
-</html>
+          
