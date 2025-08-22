@@ -1,6 +1,6 @@
 
 const tokens = {
-  "admin-token-123": "admin.html",
+  "creator-token-298": "admin.html",
   "creador-token-456": "creador.html",
   "invitado-token-789": "invitado.html"
 };
