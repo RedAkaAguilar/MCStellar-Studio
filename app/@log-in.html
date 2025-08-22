@@ -155,36 +155,61 @@
       color: #ff80ab;
     }
 
-     .error {
-      color: red;
-      font-size: 0.9rem;
-    }
   </style>
 </head>
+
 <body>
   <div class="login-container">
-    <h2>Iniciar sesión</h2>
-    <p>Ingresa tu token de acceso</p>
+    <h1>Iniciar Sesión</h1>
+    <p>Accede a tu cuenta para gestionar tus eventos y más.</p>
 
-    <input type="password" id="tokenInput" placeholder="Tu token aquí" />
-    <div class="error" id="errorMsg"></div>
-    <button onclick="handleLogin()">Entrar</button>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Correo electrónico" required />
+      <input type="password" id="password" placeholder="Contraseña" required />
+
+      <button class="button" type="submit">
+        Entrar
+        <div class="hoverEffect">
+          <div></div>
+        </div>
+      </button>
+    </form>
+
+    <a class="back-link" href="index.html">
+      ← Volver al inicio
+    </a>
   </div>
 
-  <script src="js/auth.js"></script>
   <script>
-    function handleLogin() {
-      const token = document.getElementById('tokenInput').value.trim();
-      const redirectPage = validarToken(token);
-
-      if (redirectPage) {
-        window.location.href = redirectPage;
-      } else {
-        document.getElementById('errorMsg').textContent = "Token inválido. Contacta al staff.";
+    // Lista de usuarios válidos y sus redirecciones
+    const users = {
+      "test123@mcstellar.com": {
+        password: "stellarapptest123",
+        redirect: "admin.html"
+      },
+      "creador@mcstellar.com": {
+        password: "creador456",
+        redirect: "creador.html"
+      },
+      "invitado@mcstellar.com": {
+        password: "guest789",
+        redirect: "invitado.html"
       }
-    }
+    };
+
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault(); // evita que el formulario recargue la página
+
+      const email = document.getElementById("email").value.trim().toLowerCase();
+      const password = document.getElementById("password").value.trim();
+
+      if (users[email] && users[email].password === password) {
+        // Redirige según el usuario
+        window.location.href = users[email].redirect;
+      } else {
+        alert("Correo o contraseña incorrectos.");
+      }
+    });
   </script>
 </body>
 </html>
-
-
