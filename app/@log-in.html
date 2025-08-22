@@ -155,29 +155,36 @@
       color: #ff80ab;
     }
 
+     .error {
+      color: red;
+      font-size: 0.9rem;
+    }
   </style>
 </head>
 <body>
   <div class="login-container">
-    <h1>Iniciar Sesión</h1>
-    <p>Accede a tu cuenta para gestionar tus eventos y más.</p>
+    <h2>Iniciar sesión</h2>
+    <p>Ingresa tu token de acceso</p>
 
-    <form>
-      <input type="email" placeholder="Correo electrónico" required />
-      <input type="password" placeholder="Contraseña" required />
-
-      <button class="button" type="submit">
-        Entrar
-        <div class="hoverEffect">
-          <div></div>
-        </div>
-      </button>
-    </form>
-
-    <a class="back-link" href="index.html">
-      ← Volver al inicio
-    </a>
+    <input type="password" id="tokenInput" placeholder="Tu token aquí" />
+    <div class="error" id="errorMsg"></div>
+    <button onclick="handleLogin()">Entrar</button>
   </div>
+
+  <script src="js/auth.js"></script>
+  <script>
+    function handleLogin() {
+      const token = document.getElementById('tokenInput').value.trim();
+      const redirectPage = validarToken(token);
+
+      if (redirectPage) {
+        window.location.href = redirectPage;
+      } else {
+        document.getElementById('errorMsg').textContent = "Token inválido. Contacta al staff.";
+      }
+    }
+  </script>
 </body>
 </html>
+
 
