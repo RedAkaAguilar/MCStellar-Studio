@@ -1,188 +1,160 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>MCStellar Studio</title>
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
-    /* Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root{
+      --bg:#fbf7ff;
+      --card:#ffffffaa;
+      --muted:#9aa3b2;
+      --accent1:linear-gradient(135deg,#ffd9ec 0%,#fbe7d9 50%,#e8f7ff 100%);
+      --accent2:linear-gradient(135deg,#eaf8ff 0%,#f0f6ff 60%,#f9f0ff 100%);
+      --glass: rgba(255,255,255,0.6);
+      --radius:16px;
+      --shadow: 0 8px 24px rgba(18,24,40,0.06);
+      --transition: 360ms cubic-bezier(.2,.9,.3,1);
+      font-family:"Outfit",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
     }
-
-    body {
-      font-family: "Segoe UI", sans-serif;
-      background: linear-gradient(to bottom, #e0f7fa, #fff3f3);
-      color: #333;
-      line-height: 1.6;
-      overflow-x: hidden;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:#0f1724;display:flex;flex-direction:column;min-height:100vh}
+    .app{flex:1;display:grid;grid-template-columns:1fr;gap:28px;padding:28px;align-items:start}
+    .nav{position:fixed;left:50%;transform:translateX(-50%);display:flex;gap:12px;backdrop-filter: blur(6px);background:var(--glass);padding:10px;border-radius:24px;box-shadow:var(--shadow);z-index:50}
+    .nav button{appearance:none;border:0;background:transparent;padding:8px 12px;border-radius:12px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:transform var(--transition),background var(--transition)}
+    .nav button:active{transform:scale(.98)}
+    .nav button .icon{width:20px;height:20px;opacity:.9}
+    .nav button .label{font-size:12px;color:var(--muted);line-height:1}
+    .nav button.active{background:linear-gradient(90deg,rgba(255,255,255,0.6),rgba(255,255,255,0.35));box-shadow:0 6px 18px rgba(12,20,50,0.08)}
+    main{max-width:1100px;margin:0 auto;width:100%}
+    section{display:none;border-radius:var(--radius);padding:22px;background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.5));box-shadow:var(--shadow);transition:opacity var(--transition),transform var(--transition)}
+    section.active{display:block}
+    .hero{position:relative;height:70vh;min-height:420px;background-size:cover;background-position:center;border-radius:18px;overflow:hidden}
+    .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%, rgba(0,0,0,0.55) 100%);mix-blend-mode:multiply}
+    .hero-inner{position:absolute;left:50%;top:50%;transform:translate(-50%,-20%);width:80%;max-width:1100px;display:flex;flex-direction:column;align-items:center;gap:14px}
+    .hero-card{width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;box-shadow:0 12px 30px rgba(2,6,23,0.18);transform:translateY(0);transition:transform var(--transition)}
+    .hero-card img{width:100%;height:100%;object-fit:cover;display:block}
+    .hero-caption{color:#d6dde6;font-size:13px;text-align:center}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+    .about-text{color:#264153;font-size:15px;line-height:1.6}
+    .link-image{width:100%;height:180px;border-radius:12px;overflow:hidden;display:block;object-fit:cover}
+    .events-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .event-card{border-radius:12px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;min-height:160px;background-size:cover;background-position:center;cursor:pointer;transition:transform var(--transition),box-shadow var(--transition)}
+    .event-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(12,20,50,0.08)}
+    .event-meta{background:linear-gradient(180deg,transparent 40%, rgba(0,0,0,0.55) 100%);padding:10px;color:white}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .contact-card{height:260px;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:14px;cursor:pointer;transition:transform var(--transition)}
+    .contact-card .title{font-weight:600;color:white}
+    .contact-card .small{font-size:13px;color:rgba(255,255,255,0.85);margin-top:6px}
+    footer{max-width:1100px;margin:16px auto 60px;width:100%;text-align:center;color:var(--muted);font-size:13px}
+    @media (max-width:1024px){.events-grid{grid-template-columns:repeat(3,1fr)}.about-grid{grid-template-columns:1fr}}
+    @media (max-width:768px){.nav{left:0;right:0;transform:none;bottom:12px;top:auto;justify-content:center;margin:0 auto;width:calc(100% - 28px)}
+      .nav button{padding:10px 14px;border-radius:14px}
+      .hero{height:52vh;min-height:300px}
+      .hero-inner{top:50%;transform:translate(-50%,-6%);width:92%}
+      .events-grid{grid-template-columns:repeat(2,1fr)}
+      .contact-grid{grid-template-columns:1fr}
+      .nav{position:fixed}
     }
-
-    .header {
-      text-align: center;
-      padding: 2rem 1rem;
-      background: #ffe4ec;
-      border-radius: 0 0 20px 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-
-    .hero {
-      position: relative;
-      text-align: center;
-      padding: 4rem 1rem;
-      background: linear-gradient(135deg, #fceabb, #f8b500);
-      border-radius: 20px;
-      margin: 2rem;
-      overflow: hidden;
-      color: #222;
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    .hero-content {
-      z-index: 2;
-      position: relative;
-    }
-
-    .hero h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-    }
-
-    .particles::before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background-image: url('https://cdn.jsdelivr.net/gh/JulianNorton/webgl-particles@master/particles.svg');
-      background-repeat: repeat;
-      opacity: 0.1;
-      z-index: 1;
-    }
-
-    .projects {
-      padding: 2rem;
-      text-align: center;
-      background: #fff;
-      border-radius: 20px;
-      margin: 2rem;
-      animation: fadeInUp 1.5s ease-in-out;
-    }
-
-    .projects h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    .carousel {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      position: relative;
-      height: 300px;
-      margin-top: 2rem;
-      border-radius: 20px;
-    }
-
-    .carousel-img {
-      min-width: 100%;
-      height: auto;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-      position: absolute;
-      border-radius: 20px;
-    }
-
-    .carousel-img.active {
-      opacity: 1;
-      position: relative;
-    }
-
-    .about {
-      padding: 2rem;
-      margin: 2rem;
-      background: #e1f5fe;
-      border-radius: 20px;
-      text-align: center;
-      animation: fadeInUp 1.8s ease-in-out;
-    }
-
-    .about h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    .footer {
-      text-align: center;
-      padding: 1rem;
-      background: #ffe4ec;
-      border-radius: 20px 20px 0 0;
-      margin-top: 2rem;
-    }
-
-    /* Animaciones */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+    @media (max-width:420px){.events-grid{grid-template-columns:1fr}
+      .hero{height:44vh}
     }
   </style>
 </head>
 <body>
-  <header class="header">
-    <h1>MCStellar Studio</h1>
-    <p>Creadores de eventos únicos en Minecraft</p>
-  </header>
-
-  <section class="hero">
-    <div class="hero-content">
-      <h2>Transformamos ideas en mundos increíbles</h2>
-      <p>Diseñamos eventos, mapas y experiencias personalizadas en Minecraft</p>
-    </div>
-    <div class="particles"></div>
-  </section>
-
-  <section class="projects">
-    <h2>Nuestros Proyectos</h2>
-    <div class="carousel" id="projectCarousel">
-      <img src="https://via.placeholder.com/800x300/FFC0CB/000000?text=Proyecto+1" alt="Proyecto 1" class="carousel-img active">
-      <img src="https://via.placeholder.com/800x300/ADD8E6/000000?text=Proyecto+2" alt="Proyecto 2" class="carousel-img">
-      <img src="https://via.placeholder.com/800x300/98FB98/000000?text=Proyecto+3" alt="Proyecto 3" class="carousel-img">
-    </div>
-  </section>
-
-  <section class="about">
-    <h2>¿Quiénes somos?</h2>
-    <p>Somos un equipo apasionado por crear experiencias inolvidables en Minecraft. Con años de experiencia en diseño, desarrollo y gestión de eventos, convertimos tu visión en una aventura virtual inolvidable.</p>
-  </section>
-
-  <footer class="footer">
-    <p>&copy; 2025 MCStellar Studio - Todos los derechos reservados.</p>
-  </footer>
-
+  <div class="app">
+    <nav class="nav" role="navigation" aria-label="Menu">
+      <button data-target="inicio" class="active">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 11.5L12 4l9 7.5" stroke="#0f1724" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="label">Inicio</span>
+      </button>
+      <button data-target="sobre">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="2" stroke="#0f1724" stroke-width="1.6"/><path d="M6 20c1.5-4 9-4 12 0" stroke="#0f1724" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="label">Sobre</span>
+      </button>
+      <button data-target="eventos">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="7" width="18" height="12" rx="2" stroke="#0f1724" stroke-width="1.6"/><path d="M16 3v4M8 3v4" stroke="#0f1724" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="label">Eventos</span>
+      </button>
+      <button data-target="contacto">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 8v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8" stroke="#0f1724" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 8l5 5 5-5" stroke="#0f1724" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="label">Contacto</span>
+      </button>
+    </nav>
+    <main>
+      <section id="inicio" class="active">
+        <div class="hero" style="background-image: url('https://images.unsplash.com/photo-1546377964-2f3a0b4b8a44?q=80&w=1600&auto=format&fit=crop');">
+          <div class="hero-inner">
+            <div class="hero-card">
+              <img src="https://images.unsplash.com/photo-1612831455542-3e7137c9f5d6?q=80&w=1600&auto=format&fit=crop" alt="Imagen principal"/>
+            </div>
+            <div class="hero-caption">MCStellar Studio<br><small style="color:#c8d1db">(Hacemos Creacion de Eventos Minecraft)</small></div>
+          </div>
+        </div>
+      </section>
+      <section id="sobre">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="about-grid">
+            <div class="about-text">MCStellar Studio nace de la pasión por crear experiencias inolvidables dentro de Minecraft. Diseñamos eventos, minijuegos y decorados temáticos personalizados para comunidades, servidores y celebraciones especiales. Nuestro equipo mezcla creatividad, buen gusto y pasión técnica para ofrecer producciones pulidas y con identidad propia. Trabajamos con paletas de colores suaves, estética moderna y animaciones discretas para crear mundos acogedores que invitan a jugar y compartir.</div>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <img class="link-image" src="https://images.unsplash.com/photo-1523580494862-6c6d3f9b1289?q=80&w=800&auto=format&fit=crop" alt="link1">
+              <img class="link-image" src="https://images.unsplash.com/photo-1494201401462-48d3d6b7a6f1?q=80&w=800&auto=format&fit=crop" alt="link2">
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <a href="#" class="link-image" style="width:calc(33% - 8px);height:120px"></a>
+            <a href="#" class="link-image" style="width:calc(33% - 8px);height:120px"></a>
+            <a href="#" class="link-image" style="width:calc(33% - 8px);height:120px"></a>
+          </div>
+        </div>
+      </section>
+      <section id="eventos">
+        <div class="events-grid">
+          <a class="event-card" href="#" style="background-image:url('https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop')" target="_blank" rel="noopener noreferrer"><div class="event-meta"><div>Evento 1</div></div></a>
+          <a class="event-card" href="#" style="background-image:url('https://images.unsplash.com/photo-1504805572947-34fad45aed93?q=80&w=800&auto=format&fit=crop')" target="_blank" rel="noopener noreferrer"><div class="event-meta"><div>Evento 2</div></div></a>
+          <a class="event-card" href="#" style="background-image:url('https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?q=80&w=800&auto=format&fit=crop')" target="_blank" rel="noopener noreferrer"><div class="event-meta"><div>Evento 3</div></div></a>
+          <a class="event-card" href="#" style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop')" target="_blank" rel="noopener noreferrer"><div class="event-meta"><div>Evento 4</div></div></a>
+          <a class="event-card" href="#" style="background-image:url('https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=800&auto=format&fit=crop')" target="_blank" rel="noopener noreferrer"><div class="event-meta"><div>Evento 5</div></div></a>
+          <a class="event-card" href="#" style="background-image:url('https://images.unsplash.com/photo-1470770903676-69b98201ea1c?q=80&w=800&auto=format&fit=crop')" target="_blank" rel="noopener noreferrer"><div class="event-meta"><div>Evento 6</div></div></a>
+          <a class="event-card" href="#" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop')" target="_blank" rel="noopener noreferrer"><div class="event-meta"><div>Evento 7</div></div></a>
+          <a class="event-card" href="#" style="background-image:url('https://images.unsplash.com/photo-1526481280698-8f1f8a0a5a8b?q=80&w=800&auto=format&fit=crop')" target="_blank" rel="noopener noreferrer"><div class="event-meta"><div>Evento 8</div></div></a>
+        </div>
+      </section>
+      <section id="contacto">
+        <div class="contact-grid">
+          <a class="contact-card" href="#" style="background-image:linear-gradient(180deg,rgba(0,0,0,0.15),rgba(0,0,0,0.35)), url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop')" target="_blank" rel="noopener noreferrer">
+            <div class="title">Contacto Via Discord</div>
+            <div class="small">Únete a nuestro servidor y chatea con el equipo</div>
+          </a>
+          <a class="contact-card" href="#" style="background-image:linear-gradient(180deg,rgba(0,0,0,0.12),rgba(0,0,0,0.36)), url('https://images.unsplash.com/photo-1503602642458-232111445657?q=80&w=1200&auto=format&fit=crop')" target="_blank" rel="noopener noreferrer">
+            <div class="title">Reservar Evento</div>
+            <div class="small">Solicita una cotización y planifica tu idea</div>
+          </a>
+        </div>
+        <div style="margin-top:18px;display:flex;justify-content:center">
+          <iframe src="https://discord.com/widget?id=1393636130657665206&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+        </div>
+      </section>
+      <footer>© MCStellar Studio</footer>
+    </main>
+  </div>
   <script>
-    let currentIndex = 0;
-    const images = document.querySelectorAll('.carousel-img');
-    const total = images.length;
-
-    function showNextImage() {
-      images[currentIndex].classList.remove('active');
-      currentIndex = (currentIndex + 1) % total;
-      images[currentIndex].classList.add('active');
+    const buttons=document.querySelectorAll('.nav button');
+    const sections=document.querySelectorAll('main section');
+    function show(id){
+      sections.forEach(s=>{s.classList.toggle('active',s.id===id)});
+      buttons.forEach(b=>b.classList.toggle('active',b.dataset.target===id));
+      history.replaceState(null,'',`#${id}`);
+      window.scrollTo({top:0,behavior:'smooth'});
     }
-
-    setInterval(showNextImage, 4000);
+    buttons.forEach(b=>b.addEventListener('click',()=>show(b.dataset.target)));
+    const fromHash=location.hash.replace('#','');
+    if(fromHash){const el=document.getElementById(fromHash);if(el)show(fromHash)}
+    else show('inicio');
   </script>
 </body>
 </html>
