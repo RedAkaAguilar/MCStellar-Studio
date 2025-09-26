@@ -77,6 +77,17 @@
     pointer-events:auto;
   }
 
+  .player.idle .controls {
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+.player.idle .center-controls {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
   /* progress bar row */
   .progress-row{display:flex;align-items:center;gap:12px}
   .time{color:var(--muted);font-size:13px;min-width:52px;text-align:center}
@@ -308,6 +319,25 @@
     setPlayingUI(false);
     player.classList.remove('idle');
   });
+
+  // hide controls when idle
+let idleTimer = null;
+function resetIdle(){
+  player.classList.remove('idle');
+  if (idleTimer) clearTimeout(idleTimer);
+  idleTimer = setTimeout(()=> {
+    if (!video.paused) player.classList.add('idle');
+  }, 2200); // 2.2s sin interacción
+}
+
+// pointer activity to show controls
+['mousemove','touchstart','pointerdown'].forEach(evt=>{
+  player.addEventListener(evt, resetIdle, {passive:true});
+});
+
+// inicial
+resetIdle();
+
 
   function updateBuffered(){
     try{
