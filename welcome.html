@@ -6,54 +6,56 @@
   <title>MCStellar Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#fbf7ff;
-      --card:#ffffffaa;
-      --muted:#9aa3b2;
-      --accent1:linear-gradient(135deg,#ffd9ec 0%,#fbe7d9 50%,#e8f7ff 100%);
-      --accent2:linear-gradient(135deg,#eaf8ff 0%,#f0f6ff 60%,#f9f0ff 100%);
-      --glass: rgba(255,255,255,0.6);
-      --radius:16px;
-      --shadow: 0 8px 24px rgba(18,24,40,0.06);
-      --transition: 360ms cubic-bezier(.2,.9,.3,1);
-      font-family:"Outfit",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      --bg:#fdf8ff;
+      --muted:#a6b0c2;
+      --glass: rgba(255,255,255,0.7);
+      --radius:24px;
+      --shadow:0 6px 24px rgba(100,100,150,0.08);
+      --transition:300ms cubic-bezier(.25,.8,.25,1);
+      font-family:'Baloo 2',cursive;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0;background:var(--bg);color:#0f1724;display:flex;flex-direction:column;min-height:100vh}
-    .app{flex:1;display:grid;grid-template-columns:1fr;gap:28px;padding:28px;align-items:start}
-    .nav{position:fixed;left:50%;transform:translateX(-50%);display:flex;gap:12px;backdrop-filter: blur(6px);background:var(--glass);padding:10px;border-radius:24px;box-shadow:var(--shadow);z-index:50}
-    .nav button{appearance:none;border:0;background:transparent;padding:8px 12px;border-radius:12px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:transform var(--transition),background var(--transition)}
-    .nav button:active{transform:scale(.98)}
-    .nav button .icon{width:20px;height:20px;opacity:.9}
-    .nav button .label{font-size:12px;color:var(--muted);line-height:1}
-    .nav button.active{background:linear-gradient(90deg,rgba(255,255,255,0.6),rgba(255,255,255,0.35));box-shadow:0 6px 18px rgba(12,20,50,0.08)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--bg);color:#334155;display:flex;flex-direction:column;min-height:100vh;animation:fadeIn 1s ease both}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    .app{flex:1;display:grid;grid-template-columns:1fr;gap:24px;padding:24px;align-items:start}
+    .nav{position:fixed;left:50%;transform:translateX(-50%);display:flex;gap:16px;backdrop-filter: blur(8px);background:var(--glass);padding:14px 20px;border-radius:40px;box-shadow:var(--shadow);z-index:50;animation:fadeIn 1s ease both}
+    .nav button{appearance:none;border:0;background:transparent;padding:10px 14px;border-radius:24px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;transition:transform var(--transition),background var(--transition)}
+    .nav button:hover{background:rgba(255,255,255,0.8);transform:translateY(-2px)}
+    .nav button.active{background:linear-gradient(135deg,#ffd6ec,#e6f3ff);box-shadow:var(--shadow)}
+    .nav button .icon{width:24px;height:24px;opacity:.9;transition:transform var(--transition)}
+    .nav button:hover .icon{transform:scale(1.1)}
+    .nav button .label{font-size:13px;color:var(--muted);line-height:1}
     main{max-width:1100px;margin:0 auto;width:100%}
-    section{display:none;border-radius:var(--radius);padding:22px;background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.5));box-shadow:var(--shadow);transition:opacity var(--transition),transform var(--transition)}
-    section.active{display:block}
-    .hero{position:relative;height:70vh;min-height:420px;background-size:cover;background-position:center;border-radius:18px;overflow:hidden}
-    .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%, rgba(0,0,0,0.55) 100%);mix-blend-mode:multiply}
+    section{display:none;border-radius:var(--radius);padding:22px;background:linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.6));box-shadow:var(--shadow);transition:opacity var(--transition),transform var(--transition)}
+    section.active{display:block;animation:fadeSection 0.6s ease both}
+    @keyframes fadeSection{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+    .hero{position:relative;height:70vh;min-height:420px;background-size:cover;background-position:center;border-radius:var(--radius);overflow:hidden}
+    .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%, rgba(0,0,0,0.4) 100%)}
     .hero-inner{position:absolute;left:50%;top:50%;transform:translate(-50%,-20%);width:80%;max-width:1100px;display:flex;flex-direction:column;align-items:center;gap:14px}
-    .hero-card{width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;box-shadow:0 12px 30px rgba(2,6,23,0.18);transform:translateY(0);transition:transform var(--transition)}
-    .hero-card img{width:100%;height:100%;object-fit:cover;display:block}
-    .hero-caption{color:#d6dde6;font-size:13px;text-align:center}
+    .hero-card{width:100%;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform var(--transition)}
+    .hero-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 3s ease}
+    .hero-card:hover img{transform:scale(1.05)}
+    .hero-caption{color:#f1f5f9;font-size:15px;text-align:center}
     .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
-    .about-text{color:#264153;font-size:15px;line-height:1.6}
-    .link-image{width:100%;height:180px;border-radius:12px;overflow:hidden;display:block;object-fit:cover}
+    .about-text{color:#475569;font-size:16px;line-height:1.7}
+    .link-image{width:100%;height:180px;border-radius:var(--radius);overflow:hidden;display:block;object-fit:cover;transition:transform var(--transition),box-shadow var(--transition)}
+    .link-image:hover{transform:scale(1.03);box-shadow:var(--shadow)}
     .events-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-    .event-card{border-radius:12px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;min-height:160px;background-size:cover;background-position:center;cursor:pointer;transition:transform var(--transition),box-shadow var(--transition)}
-    .event-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(12,20,50,0.08)}
-    .event-meta{background:linear-gradient(180deg,transparent 40%, rgba(0,0,0,0.55) 100%);padding:10px;color:white}
+    .event-card{border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;min-height:160px;background-size:cover;background-position:center;cursor:pointer;transition:transform var(--transition),box-shadow var(--transition)}
+    .event-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:var(--shadow)}
+    .event-meta{background:linear-gradient(180deg,transparent 40%, rgba(0,0,0,0.45) 100%);padding:10px;color:white}
     .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    .contact-card{height:260px;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:14px;cursor:pointer;transition:transform var(--transition)}
-    .contact-card .title{font-weight:600;color:white}
-    .contact-card .small{font-size:13px;color:rgba(255,255,255,0.85);margin-top:6px}
+    .contact-card{height:260px;border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:18px;cursor:pointer;transition:transform var(--transition),box-shadow var(--transition)}
+    .contact-card:hover{transform:translateY(-4px) scale(1.01);box-shadow:var(--shadow)}
+    .contact-card .title{font-weight:600;color:white;font-size:18px}
+    .contact-card .small{font-size:14px;color:rgba(255,255,255,0.9);margin-top:6px}
     footer{max-width:1100px;margin:16px auto 60px;width:100%;text-align:center;color:var(--muted);font-size:13px}
     @media (max-width:1024px){.events-grid{grid-template-columns:repeat(3,1fr)}.about-grid{grid-template-columns:1fr}}
     @media (max-width:768px){.nav{left:0;right:0;transform:none;bottom:12px;top:auto;justify-content:center;margin:0 auto;width:calc(100% - 28px)}
-      .nav button{padding:10px 14px;border-radius:14px}
+      .nav button{padding:10px 14px;border-radius:28px}
       .hero{height:52vh;min-height:300px}
       .hero-inner{top:50%;transform:translate(-50%,-6%);width:92%}
       .events-grid{grid-template-columns:repeat(2,1fr)}
@@ -69,19 +71,19 @@
   <div class="app">
     <nav class="nav" role="navigation" aria-label="Menu">
       <button data-target="inicio" class="active">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 11.5L12 4l9 7.5" stroke="#0f1724" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 11.5L12 4l9 7.5" stroke="#334155" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <span class="label">Inicio</span>
       </button>
       <button data-target="sobre">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="2" stroke="#0f1724" stroke-width="1.6"/><path d="M6 20c1.5-4 9-4 12 0" stroke="#0f1724" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="2" stroke="#334155" stroke-width="1.6"/><path d="M6 20c1.5-4 9-4 12 0" stroke="#334155" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <span class="label">Sobre</span>
       </button>
       <button data-target="eventos">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="7" width="18" height="12" rx="2" stroke="#0f1724" stroke-width="1.6"/><path d="M16 3v4M8 3v4" stroke="#0f1724" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="7" width="18" height="12" rx="2" stroke="#334155" stroke-width="1.6"/><path d="M16 3v4M8 3v4" stroke="#334155" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <span class="label">Eventos</span>
       </button>
       <button data-target="contacto">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 8v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8" stroke="#0f1724" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 8l5 5 5-5" stroke="#0f1724" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 8v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8" stroke="#334155" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 8l5 5 5-5" stroke="#334155" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <span class="label">Contacto</span>
       </button>
     </nav>
@@ -92,7 +94,7 @@
             <div class="hero-card">
               <img src="https://images.unsplash.com/photo-1612831455542-3e7137c9f5d6?q=80&w=1600&auto=format&fit=crop" alt="Imagen principal"/>
             </div>
-            <div class="hero-caption">MCStellar Studio<br><small style="color:#c8d1db">(Hacemos Creacion de Eventos Minecraft)</small></div>
+            <div class="hero-caption">MCStellar Studio<br><small style="color:#f1f5f9">(Hacemos Creacion de Eventos Minecraft)</small></div>
           </div>
         </div>
       </section>
@@ -106,9 +108,9 @@
             </div>
           </div>
           <div style="display:flex;gap:12px;flex-wrap:wrap">
-            <a href="#" class="link-image" style="width:calc(33% - 8px);height:120px"></a>
-            <a href="#" class="link-image" style="width:calc(33% - 8px);height:120px"></a>
-            <a href="#" class="link-image" style="width:calc(33% - 8px);height:120px"></a>
+            <a href="#" class="link-image" style="width:calc(33% - 8px);height:120px;background:#e0f7ff"></a>
+            <a href="#" class="link-image" style="width:calc(33% - 8px);height:120px;background:#ffe0f0"></a>
+            <a href="#" class="link-image" style="width:calc(33% - 8px);height:120px;background:#fef9e6"></a>
           </div>
         </div>
       </section>
