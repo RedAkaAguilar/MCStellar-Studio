@@ -35,7 +35,7 @@
     .hero{position:relative;height:70vh;min-height:420px;background-size:cover;background-position:center;border-radius:var(--radius);overflow:hidden}
     .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%, rgba(0,0,0,0.4) 100%)}
     .hero-inner{position:absolute;left:50%;top:50%;transform:translate(-50%,-20%);width:80%;max-width:1100px;display:flex;flex-direction:column;align-items:center;gap:14px}
-    .hero-card{width:100%;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform var(--transition)}
+    .hero-card{width:100%;aspect-ratio:16/9;border-radius:0px;overflow:hidden;box-shadow:var(--shadow);transition:transform var(--transition)}
     .hero-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 3s ease;index: 999;}
     .hero-card:hover img{transform:scale(1.05)}
     .hero-caption{color:#f1f5f9;font-size:15px;text-align:center}
@@ -55,7 +55,7 @@
     footer{max-width:1100px;margin:16px auto 60px;width:100%;text-align:center;color:var(--muted);font-size:13px}
     @media (max-width:1024px){.events-grid{grid-template-columns:repeat(3,1fr)}.about-grid{grid-template-columns:1fr}}
     @media (max-width:768px){.nav{left:0;right:0;transform:none;bottom:12px;top:auto;justify-content:center;margin:0 auto;width:calc(100% - 28px)}
-      .nav button{padding:10px 14px;border-radius:28px}
+      .nav button{padding:10px 14px;border-radius:60px}
       .hero{height:52vh;min-height:300px}
       .hero-inner{top:50%;transform:translate(-50%,-6%);width:92%}
       .events-grid{grid-template-columns:repeat(2,1fr)}
@@ -94,7 +94,9 @@
             <div class="hero-card">
               <br></br>
               <h1>MCStellar Studio</h1>
-              <p> Esta es la pagina Official del MCStellar Studio, aqui podras encontrar como comunicarte con nosotros y eventos hechos por nosotros</p>
+              <p> Esta es la pagina Official del MCStellar Studio, aqui podras encontrar como comunicarte con nosotros, eventos creados por nosotros y mucho mas!!</p>
+              <br></br>
+              <p>Si desea saber mas informacion puede unirse a nuestro Discord y comunicarse con nuestro equipo! Tambien en nuestro Discord hay anuncios de Inmediato de Eventos y tambien puedes inscribirte a uno de nuestros eventos y ser parte de la Experiencia. Tambien tenemos una linda comunidad la cual te esta esperando!</p>
             </div>
           </div>
         </div>
