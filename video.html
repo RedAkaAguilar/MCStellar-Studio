@@ -129,6 +129,38 @@
   transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
+  .volume-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+#volumeSlider {
+  -webkit-appearance: none;
+  width: 100px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.1);
+  margin-left: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+#volumeSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 3px solid var(--accent);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
+
+#volumeSlider::-moz-range-thumb {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 3px solid var(--accent);
+}
 
   /* responsive */
   @media (max-width:900px){
@@ -215,6 +247,16 @@
 
           <div class="right" style="justify-content:flex-end">
             <div id="ccBadge" class="cc-indicator" style="display:none">CC</div>
+
+            <div class="volume-wrap">
+  <button class="btn" id="volumeBtn" title="Volumen">
+    <svg class="icon" viewBox="0 0 24 24">
+      <path id="volumeIcon" d="M7 9v6h4l5 5V4l-5 5H7z" fill="currentColor"/>
+    </svg>
+  </button>
+  <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="1" style="display:none">
+</div>
+
           </div>
         </div>
       </div>
@@ -266,6 +308,50 @@
       centerControls.style.pointerEvents = 'auto';
     }
   }
+
+  const volumeBtn = document.getElementById('volumeBtn');
+const volumeSlider = document.getElementById('volumeSlider');
+const volumeIcon = document.getElementById('volumeIcon');
+
+// Mostrar/ocultar barra al tocar el botón
+volumeBtn.addEventListener('click', ()=>{
+  if (volumeSlider.style.display === 'none'){
+    volumeSlider.style.display = 'block';
+  } else {
+    volumeSlider.style.display = 'none';
+  }
+  resetIdle();
+});
+
+// Cambiar volumen al mover slider
+volumeSlider.addEventListener('input', ()=>{
+  video.volume = volumeSlider.value;
+  updateVolumeIcon();
+  resetIdle();
+});
+
+// Mutear/desmutear al hacer doble click en el botón
+volumeBtn.addEventListener('dblclick', ()=>{
+  video.muted = !video.muted;
+  volumeSlider.value = video.muted ? 0 : video.volume;
+  updateVolumeIcon();
+  resetIdle();
+});
+
+// Función para actualizar ícono según nivel
+function updateVolumeIcon(){
+  if (video.muted || video.volume === 0){
+    volumeIcon.setAttribute('d','M7 9v6h4l5 5V4l-5 5H7z M0 0'); // mute
+  } else if (video.volume < 0.5){
+    volumeIcon.setAttribute('d','M7 9v6h4l5 5V4l-5 5H7z'); // volumen medio
+  } else {
+    volumeIcon.setAttribute('d','M7 9v6h4l5 5V4l-5 5H7z M16 7c2 2 2 8 0 10'); // volumen alto
+  }
+}
+
+// Inicial
+updateVolumeIcon();
+
 
   // hide controls when idle
 let idleTimer = null;
